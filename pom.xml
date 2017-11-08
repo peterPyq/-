@@ -69,14 +69,17 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		<!-- <dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-databind</artifactId> 
-			<version>2.8.8</version> </dependency> -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
-
+		<dependency> 
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.7.5</version> 
+		</dependency>
+		
 		<!-- Spring依赖 -->
 		<!-- 1)Spring的核心依赖 -->
 		<dependency>

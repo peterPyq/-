@@ -12,7 +12,7 @@ public class SuccessSeckilled {
 	private short state;
 	private Date createTime;
 	
-	private Seckill seckill;// 多对一
+	private Seckill seckill;
 
 	public long getSeckillId() {
 		return seckillId;
