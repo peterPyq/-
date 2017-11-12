@@ -79,6 +79,11 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.7.5</version> 
 		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
 		
 		<!-- Spring依赖 -->
 		<!-- 1)Spring的核心依赖 -->
@@ -125,10 +130,25 @@
 			<artifactId>spring-test</artifactId>
 			<version>4.2.2.RELEASE</version>
 		</dependency>
-
-
-
-
+		
+		<!-- Redis缓存相关依赖 -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.7.3</version>
+		</dependency>
+		
+		<!-- 高性能序列化工具：protostuff 相关依赖 -->
+		<dependency>
+			<groupId>com.dyuproject.protostuff</groupId>
+			<artifactId>protostuff-runtime</artifactId>
+			<version>1.0.8</version>
+		</dependency>
+		<dependency>
+		   <groupId>com.dyuproject.protostuff</groupId>
+		   <artifactId>protostuff-core</artifactId>
+		   <version>1.0.8</version>
+		</dependency>
 	</dependencies>
 
 	<build>

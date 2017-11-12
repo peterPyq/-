@@ -14,7 +14,7 @@ public interface SeckillService {
 	 * 查询所有的秒杀记录
 	 * @return List
 	 */
-	List<Seckill> getSeckillList();
+	List<Seckill> getSeckillList(int offset,int limlt);
 
 	/**
 	 * 查询单个的秒杀记录
@@ -29,6 +29,11 @@ public interface SeckillService {
 	 */
 	Exposer exportSeckillUrl(long seckillId);
 
+	/**
+	 * 仅当秒杀开启时输出秒杀接口,采用Redis缓存来做优化
+	 * @param seckillId
+	 */
+	public Exposer exportSeckillUrlWithRedis(long seckillId);
 	/**
 	 * 执行秒杀操作
 	 * @param seckillId

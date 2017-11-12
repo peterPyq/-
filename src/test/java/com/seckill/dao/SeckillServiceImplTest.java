@@ -30,7 +30,7 @@ public class SeckillServiceImplTest {
 
 	@Test
 	public void testGetSeckillList() {
-		List<Seckill> list = seckillService.getSeckillList();
+		List<Seckill> list = seckillService.getSeckillList(0,4);
 		logger.info("seckill={}", list);
 	}
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
+import com.seckill.cache.RedisDao;
 import com.seckill.dao.SeckillDao;
 import com.seckill.dao.SuccessKilledDao;
 import com.seckill.dto.Exposer;
@@ -31,13 +32,16 @@ public class SeckillServiceImpl implements SeckillService {
 	private SeckillDao seckillDao;
 	
 	@Autowired
+	private RedisDao redisDao;
+	
+	@Autowired
 	private SuccessKilledDao successKilledDao;
 	
 	private final String SLAT="1pengyuquantest2";//用于制造md5值
 
 	@Override
-	public List<Seckill> getSeckillList() {
-		return seckillDao.queryAll(0, 10);
+	public List<Seckill> getSeckillList(int offset , int limlt) {
+		return seckillDao.queryAll(offset , limlt);
 	}
 
 	@Override
@@ -48,7 +52,31 @@ public class SeckillServiceImpl implements SeckillService {
 	@Override
 	public Exposer exportSeckillUrl(long seckillId) {
 		Seckill seckill = seckillDao.queryById(seckillId);
+		if(null == seckill) {
+			return new Exposer(false, seckillId);
+		}
+		long startTime = seckill.getStartTime().getTime();
+		long endTime = seckill.getEndTime().getTime();
+		long nowTime = (new Date()).getTime();
 
+		if (nowTime >= startTime && nowTime <= endTime) {
+			String md5 = this.getMD5(seckillId);
+			return new Exposer(true, md5, seckillId);
+		}
+		return new Exposer(false, nowTime, startTime, endTime);
+	}
+	
+	@Override
+	public Exposer exportSeckillUrlWithRedis(long seckillId) {
+		Seckill seckill = redisDao.getSeckill(seckillId);
+		if(null == seckill) {
+			seckill = seckillDao.queryById(seckillId);
+			if(null == seckill) {
+				return new Exposer(false, seckillId);
+			}else {
+				redisDao.putSeckill(seckill);
+			}
+		}
 		long startTime = seckill.getStartTime().getTime();
 		long endTime = seckill.getEndTime().getTime();
 		long nowTime = (new Date()).getTime();

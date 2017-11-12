@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.seckill.dto.Exposer;
 import com.seckill.entity.Seckill;
 
 /**
@@ -37,6 +38,26 @@ public class SeckillDaoTest {
 		Long id = 1000L;
 		Seckill seckill = seckillDao.queryById(id);
 		System.out.println(seckill);
+	}
+	
+	@Test
+	public void testQuery() {
+		Long seckillId = 1000L;
+		Seckill seckill = seckillDao.queryById(seckillId);
+		if(null == seckill) {
+			System.out.println(new Exposer(false, seckillId));
+			return;
+		}
+		long startTime = seckill.getStartTime().getTime();
+		long endTime = seckill.getEndTime().getTime();
+		long nowTime = (new Date()).getTime();
+
+		if (nowTime >= startTime && nowTime <= endTime) {
+			String md5 = "真的MD5";
+			System.out.println(new Exposer(true, md5, seckillId));
+			return;
+		}
+		System.out.println(new Exposer(false, nowTime, startTime, endTime));
 	}
 
 	@Test
